@@ -3,10 +3,12 @@ import { Component } from 'solid-js'
 import {
   currentAudioUrl,
   intervalId,
+  isLoading,
   isPlaying,
   rawData,
   setCurrentAudioUrl,
   setIntervalId,
+  setIsLoading,
   setIsPlaying,
   setRawData,
   source,
@@ -28,6 +30,7 @@ const App: Component = () => {
       setRawData([])
     } else {
       setIsPlaying(true)
+      setIsLoading(true)
       startFromFile()
     }
   }
@@ -56,14 +59,18 @@ const App: Component = () => {
       >
         <div
           onClick={playPause}
-          class='bg-indigo-500/50 hover:bg-indigo-500 w-1/12 rounded-lg flex justify-center items-center cursor-pointer'
+          class='bg-indigo-500/50 h-12 hover:bg-indigo-500 w-1/6 rounded-lg flex justify-center items-center cursor-pointer'
         >
-          <img
-            src={isPlaying() ? pauseIcon : playIcon}
-            class='w-12 h-12 inline'
-          />
+          {
+            isLoading() ?
+            'loading...' :
+            <img
+              src={isPlaying() ? pauseIcon : playIcon}
+              class='w-12 h-12 inline'
+            /> 
+          }
         </div>
-        <div class='bg-indigo-500/50 hover:bg-indigo-500 w-1/12 rounded-lg mt-4 relative cursor-pointer'>
+        <div class='bg-indigo-500/50 h-12 hover:bg-indigo-500 w-1/6 rounded-lg mt-4 relative cursor-pointer'>
           <div class='w-full h-full flex justify-center items-center'>
             <img src={uploadIcon} class='w-12 h-12 inline' />
           </div>

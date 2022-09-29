@@ -4,6 +4,7 @@ const [rawData, setRawData] = createSignal<number[]>([])
 const [isPlaying, setIsPlaying] = createSignal<boolean>(false)
 const [intervalId, setIntervalId] = createSignal<number | null>(null)
 const [currentAudioUrl, setCurrentAudioUrl] = createSignal<string>('/Audio.mp3')
+const [isLoading, setIsLoading] = createSignal<boolean>(false)
 
 let source: any
 
@@ -23,6 +24,7 @@ export const startFromFile = async () => {
   source.connect(analyzer)
   analyzer.connect(context.destination)
   source.start()
+  setIsLoading(false)
 
   const bufferLength = analyzer.frequencyBinCount
   const dataArray = new Uint8Array(bufferLength)
@@ -44,5 +46,7 @@ export {
   setRawData,
   source,
   setCurrentAudioUrl,
-  currentAudioUrl
+  currentAudioUrl,
+  isLoading,
+  setIsLoading
 }
