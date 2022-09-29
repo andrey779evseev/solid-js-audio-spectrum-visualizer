@@ -1,17 +1,26 @@
 import { interpolateInferno, interpolateSinebow } from 'd3'
 import { Component } from 'solid-js'
-import { currentAudioUrl, intervalId, isPlaying, rawData, setCurrentAudioUrl, setIntervalId, setIsPlaying, setRawData, source, startFromFile } from './AudioSource'
+import {
+  currentAudioUrl,
+  intervalId,
+  isPlaying,
+  rawData,
+  setCurrentAudioUrl,
+  setIntervalId,
+  setIsPlaying,
+  setRawData,
+  source,
+  startFromFile
+} from './AudioSource'
 import RadialGraph from './components/RadialGraph'
 import playIcon from './assets/play.png'
 import pauseIcon from './assets/pause.png'
 import uploadIcon from './assets/upload.png'
 
-
 const App: Component = () => {
-
   const playPause = () => {
-    if(!currentAudioUrl) return
-    if(isPlaying()) {
+    if (!currentAudioUrl) return
+    if (isPlaying()) {
       source.stop()
       clearInterval(intervalId()!)
       setIntervalId(null)
@@ -29,24 +38,40 @@ const App: Component = () => {
 
   return (
     <div class='w-full h-screen z-10'>
-      {rawData().length !== 0 && <svg
-        width='100%'
-        height='100%'
-        viewBox='-100 -100 200 200'
-        preserveAspectRatio='xMidYMid meet'
+      {rawData().length !== 0 && (
+        <svg
+          width='100%'
+          height='100%'
+          viewBox='-100 -100 200 200'
+          preserveAspectRatio='xMidYMid meet'
+        >
+          <RadialGraph color={interpolateSinebow} scale={1} />
+          <RadialGraph color={interpolateInferno} scale={0.5} />
+        </svg>
+      )}
+      <div
+        class={`fixed bottom-4 left-auto right-auto flex flex-col w-full items-center z-20 ${
+          !currentAudioUrl && 'cursor-not-allowed'
+        }`}
       >
-        <RadialGraph color={interpolateSinebow} scale={1}/>
-        <RadialGraph color={interpolateInferno} scale={0.5}/>
-      </svg>}
-      <div class={`fixed bottom-4 left-auto right-auto flex flex-col w-full items-center z-20 ${!currentAudioUrl && 'cursor-not-allowed'}`}>
-        <div onClick={playPause} class='bg-indigo-500/50 hover:bg-indigo-500 w-1/12 rounded-lg flex justify-center items-center cursor-pointer'>
-          <img src={isPlaying() ? pauseIcon : playIcon} class='w-12 h-12 inline' />
+        <div
+          onClick={playPause}
+          class='bg-indigo-500/50 hover:bg-indigo-500 w-1/12 rounded-lg flex justify-center items-center cursor-pointer'
+        >
+          <img
+            src={isPlaying() ? pauseIcon : playIcon}
+            class='w-12 h-12 inline'
+          />
         </div>
         <div class='bg-indigo-500/50 hover:bg-indigo-500 w-1/12 rounded-lg mt-4 relative cursor-pointer'>
           <div class='w-full h-full flex justify-center items-center'>
             <img src={uploadIcon} class='w-12 h-12 inline' />
           </div>
-          <input type="file" class='opacity-0 w-full h-full absolute top-0 left-0 z-30' onChange={onFileUpload} />
+          <input
+            type='file'
+            class='opacity-0 w-full h-full absolute top-0 left-0 z-30'
+            onChange={onFileUpload}
+          />
         </div>
       </div>
     </div>
