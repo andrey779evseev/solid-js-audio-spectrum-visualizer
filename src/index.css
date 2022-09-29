@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #8e2de2;
+  background: -webkit-linear-gradient(to left, #8e2de2, #4a00e0);
+  background: linear-gradient(to left, #8e2de2, #4a00e0);
+}
+
+::-webkit-file-upload-button { cursor:pointer; }
