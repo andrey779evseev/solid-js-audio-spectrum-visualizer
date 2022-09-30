@@ -2,12 +2,11 @@ import { interpolateInferno, interpolateSinebow } from 'd3'
 import { Component } from 'solid-js'
 import {
   currentAudioUrl,
-  intervalId,
   isLoading,
   isPlaying,
   rawData,
   setCurrentAudioUrl,
-  setIntervalId,
+  setIsContinue,
   setIsLoading,
   setIsPlaying,
   setRawData,
@@ -24,8 +23,7 @@ const App: Component = () => {
     if (!currentAudioUrl) return
     if (isPlaying()) {
       source.stop()
-      clearInterval(intervalId()!)
-      setIntervalId(null)
+      setIsContinue(false)
       setIsPlaying(false)
       setRawData([])
     } else {

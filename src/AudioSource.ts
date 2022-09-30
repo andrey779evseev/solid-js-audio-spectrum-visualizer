@@ -2,7 +2,7 @@ import { createSignal } from 'solid-js'
 
 const [rawData, setRawData] = createSignal<number[]>([])
 const [isPlaying, setIsPlaying] = createSignal<boolean>(false)
-const [intervalId, setIntervalId] = createSignal<number | null>(null)
+const [isContinue, setIsContinue] = createSignal<boolean>(true)
 const [currentAudioUrl, setCurrentAudioUrl] = createSignal<string>('/Audio.mp3')
 const [isLoading, setIsLoading] = createSignal<boolean>(false)
 
@@ -30,6 +30,8 @@ export const startFromFile = async () => {
     console.log('source', source);
     
     source.start()
+    console.log(source.buffer, audioBuffer);
+    
     setIsLoading(false)
   
     const bufferLength = analyzer.frequencyBinCount
@@ -41,7 +43,8 @@ export const startFromFile = async () => {
       console.log('orig', orig);
       
       setRawData([[...orig].reverse(), orig].flat())
-      requestAnimationFrame(update)
+      if(isContinue())
+        requestAnimationFrame(update)
     }
     requestAnimationFrame(update)
   } catch (err) {
@@ -52,8 +55,8 @@ export const startFromFile = async () => {
 export {
   rawData,
   isPlaying,
-  intervalId,
-  setIntervalId,
+  isContinue,
+  setIsContinue,
   setIsPlaying,
   setRawData,
   source,
