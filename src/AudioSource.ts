@@ -16,7 +16,12 @@ export const startFromFile = async () => {
     const byteArray = await res.arrayBuffer()
     console.log('byte arr', byteArray);
     
-    const context = new AudioContext()
+    var context;
+    if (typeof AudioContext !== "undefined") {
+        context = new AudioContext();
+    } else if (typeof webkitAudioContext !== "undefined") {
+        context = new webkitAudioContext();
+    }
     const audioBuffer = await context.decodeAudioData(byteArray)
   
     source = context.createBufferSource()
