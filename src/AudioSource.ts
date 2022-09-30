@@ -44,7 +44,7 @@ export const startFromFile = async () => {
   const res = await fetch(currentAudioUrl())
   const byteArray = await res.arrayBuffer()
 
-  const context = new AudioContext()
+  const context = new window.AudioContext()
   const audioBuffer = await context.decodeAudioData(byteArray)
 
   source = context.createBufferSource()
