@@ -59,14 +59,14 @@ const App: Component = () => {
           onClick={playPause}
           class='bg-indigo-500/50 h-12 hover:bg-indigo-500 w-1/6 rounded-lg flex justify-center items-center cursor-pointer'
         >
-          {
-            isLoading() ?
-            'loading...' :
+          {isLoading() ? (
+            'loading...'
+          ) : (
             <img
               src={isPlaying() ? pauseIcon : playIcon}
               class='w-12 h-12 inline'
-            /> 
-          }
+            />
+          )}
         </div>
         <div class='bg-indigo-500/50 h-12 hover:bg-indigo-500 w-1/6 rounded-lg mt-4 relative cursor-pointer'>
           <div class='w-full h-full flex justify-center items-center'>

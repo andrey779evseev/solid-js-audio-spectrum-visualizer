@@ -1,5 +1,6 @@
+import { destructure } from '@solid-primitives/destructure'
 import { arc } from 'd3'
-import { createMemo, For, type Component } from 'solid-js'
+import { createMemo, Index, splitProps, type Component } from 'solid-js'
 import { rawData } from '../AudioSource'
 
 const arcBuilder = arc()
@@ -10,7 +11,7 @@ type PropsType = {
 }
 
 const RadialGraph: Component<PropsType> = props => {
-  const { color, scale } = props
+  const { color, scale } = destructure(props)
 
   const computed = createMemo(() => {
     const data = rawData()
@@ -40,7 +41,7 @@ const RadialGraph: Component<PropsType> = props => {
       })!
       paths.push({
         path,
-        color: color(d / 255)
+        color: color()(d / 255)
       })
       currentAngle += angle
     }
@@ -48,10 +49,10 @@ const RadialGraph: Component<PropsType> = props => {
   })
 
   return (
-    <g transform={`scale(${(computed().intensity * scale) / 4 + 1})`}>
-      <For each={computed().paths}>
-        {p => <path d={p.path} fill={p.color} />}
-      </For>
+    <g transform={`scale(${(computed().intensity * scale()) / 4 + 1})`}>
+      <Index each={computed().paths}>
+        {p => <path d={p().path} fill={p().color} />}
+      </Index>
     </g>
   )
 }

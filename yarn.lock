@@ -349,6 +349,18 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@solid-primitives/destructure@^0.1.2":
+  version "0.1.2"
+  resolved "http://194.28.112.20:4873/@solid-primitives%2fdestructure/-/destructure-0.1.2.tgz#bb49db6e783d6add1307df88b167134a899b5f38"
+  integrity sha512-Is/o14Sj6LUS9/yzsTsnp0BQ+wWMHhEhzUAp8FXgFiirHuzfZVDngvRd0a4PezDw5kl8ziyV7vBimDt5vuKPhw==
+  dependencies:
+    "@solid-primitives/utils" "^3.0.2"
+
+"@solid-primitives/utils@^3.0.2":
+  version "3.0.2"
+  resolved "http://194.28.112.20:4873/@solid-primitives%2futils/-/utils-3.0.2.tgz#b2429dfae6c14029e05ed7174cc953af8370d036"
+  integrity sha512-LCU3tVrJmyRqJ0ocG5uCEuUNqmGkcAC+cWpDEE49AuvtehkdQfv4CfqvdNJgs3eoQRQhLOrVcgd1bHFJY4lsrQ==
+
 "@types/d3-array@*":
   version "3.0.3"
   resolved "http://194.28.112.20:4873/@types%2fd3-array/-/d3-array-3.0.3.tgz#87d990bf504d14ad6b16766979d04e943c046dac"

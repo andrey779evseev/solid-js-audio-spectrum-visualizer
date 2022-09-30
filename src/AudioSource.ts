@@ -11,17 +11,10 @@ let source: AudioBufferSourceNode
 export const startFromFile = async () => {
   try {
     const res = await fetch(currentAudioUrl())
-    console.log('res', res);
     
     const byteArray = await res.arrayBuffer()
-    console.log('byte arr', byteArray);
     
-    var context;
-    if (typeof AudioContext !== "undefined") {
-        context = new AudioContext();
-    } else if (typeof webkitAudioContext !== "undefined") {
-        context = new webkitAudioContext();
-    }
+    const context = new AudioContext()
     const audioBuffer = await context.decodeAudioData(byteArray)
   
     source = context.createBufferSource()
@@ -32,10 +25,8 @@ export const startFromFile = async () => {
   
     source.connect(analyzer)
     analyzer.connect(context.destination)
-    console.log('source', source);
     
     source.start()
-    console.log(source.buffer, audioBuffer);
     
     setIsLoading(false)
   
@@ -45,8 +36,6 @@ export const startFromFile = async () => {
     const update = () => {
       analyzer.getByteFrequencyData(dataArray)
       const orig = Array.from(dataArray)
-      console.log('orig', orig);
-      
       setRawData([[...orig].reverse(), orig].flat())
       if(isContinue())
         requestAnimationFrame(update)
